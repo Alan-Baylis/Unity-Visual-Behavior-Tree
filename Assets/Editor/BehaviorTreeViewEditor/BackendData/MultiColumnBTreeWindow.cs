@@ -21,7 +21,7 @@ namespace Assets.Editor.BehaviorTreeViewEditor.BackendData
         [SerializeField] BehaviorTreeManagerAsset _BehaviorTreeManagerAsset;
 
         string FilePath = "";
-        private static string FileDir = "Assets/Behaviors/";
+        private static string FileDir = "Assets/Examples/";
 
         [MenuItem("Behavior Tree/New Tree")]
         public static MultiColumnBTreeWindow GetWindow()
@@ -135,7 +135,7 @@ namespace Assets.Editor.BehaviorTreeViewEditor.BackendData
             _BehaviorTreeManagerAsset = (BehaviorTreeManagerAsset)Selection.activeObject;
             var root =new ParallelRunner("root",-1,-1);
             BehaviorExtensions.SaveBehaviorAsset(null, AssetDatabase.GetAssetPath(_BehaviorTreeManagerAsset),
-                                                _BehaviorTreeManagerAsset,(ParallelRunner)root);
+                                                _BehaviorTreeManagerAsset,root);
         }
 
         void OnSelectionChange()

@@ -99,25 +99,17 @@ namespace Assets.Editor
             }
             else if(Entry.State.HasChildren)
             {
-               offset = DrawChildrenAndGetOffset() / 2;
+               DrawChildrenAndSetOffset();
             }
-            var parent = Entry.State.Parent;
-            if (parent != null)
-            {
-                if (parent.HasChildren)
-                {
-                    if (parent.Children.Count == 1)
-                    {
-                        offset = (int)BoxSize.x / 2;
-                    }
-                }
-            }
-            this.TotalOffset.left = offset;
-            this.TotalOffset.right = offset;
-            DrawBehaviorLogEntry();  
+
+            //TotalOffset needs to be halfway between total value of all children
+            //this.TotalOffset.left = offset;
+            //this.TotalOffset.right = offset;
+
+            DrawBehaviorLogEntry();
         }
 
-        private int DrawChildrenAndGetOffset()
+        private void DrawChildrenAndSetOffset()
         {
             var newOffset = 0;
             BehaviorLogDrawer prevChildDrawer = null;
@@ -138,9 +130,13 @@ namespace Assets.Editor
                 
                 newOffset += (int)BoxSize.x;
                 prevChildDrawer = child;
+            }
+            foreach (var child in ChildrenDrawers.Values)
+            {
                 child.DrawBehaviorWithAllChildren();
             }
-            return newOffset;
+            this.TotalOffset.left = newOffset / 2;           
+            this.TotalOffset.right = newOffset / 2;           
         }
 
         protected void DrawBehaviorLogEntry()

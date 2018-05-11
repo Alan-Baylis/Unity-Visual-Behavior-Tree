@@ -11,12 +11,13 @@ namespace Assets.Scripts.AI
     [Serializable]
     public class BehaviorTreeElement : TreeElement, IDisposable
     {
+        [Newtonsoft.Json.JsonIgnore]
         public LongReactiveProperty NumberOfTicksReceived { get; private set; }
 
         public string ElementType { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
-        [SerializeField]
+        [NonSerialized]
         private BehaviorManager _BehaviorTreeManager;
         [Newtonsoft.Json.JsonIgnore]
         public BehaviorManager BehaviorTreeManager
@@ -42,8 +43,10 @@ namespace Assets.Scripts.AI
         }
 
         [Newtonsoft.Json.JsonIgnore]
+        [NonSerialized]
         public BehaviorState CurrentState;
-
+        [Newtonsoft.Json.JsonIgnore]
+        [NonSerialized]
         public bool Initialized = false;
         public virtual IEnumerator Tick(WaitForSeconds delayStart = null)
         {

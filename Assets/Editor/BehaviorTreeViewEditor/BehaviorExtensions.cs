@@ -127,14 +127,14 @@ namespace Assets.Editor.BehaviorTreeViewEditor
             Debug.Log("JSON Saved: " + asset.RunnerElementsJSON);
 
             var curPath = AssetDatabase.GetAssetPath(asset);
-
+            Debug.Log("Asset Path: " + curPath);
             if(curPath == null || curPath == "")
             {
                 Debug.Log("Creating asset: " + filePath);
                 AssetDatabase.CreateAsset(asset, filePath);
             }
                 
-            //AssetDatabase.Refresh();
+            AssetDatabase.Refresh();
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();
         }
